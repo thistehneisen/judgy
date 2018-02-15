@@ -358,7 +358,7 @@ main.ratings .comments .head .time {
 }
 
 main.ratings .comments {
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
 
 main.ratings .comments .body {
