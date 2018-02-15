@@ -1,0 +1,487 @@
+/* +++ generic +++ */
+body {
+    width: 323px;
+    margin: 0;
+    padding: 0;
+    background: #dfdfdf;
+    color: #272828;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+a, button, label {
+    cursor: pointer;
+}
+
+/* --- generic --- */
+/* +++ header +++ */
+
+header img {
+    width: 73px;
+    height: 31px;
+}
+
+header.not-logged-in {
+    padding: 32px 0 18px;
+    text-align: center;
+}
+
+header.not-logged-in img {
+    display: inline-block;
+}
+
+header.logged-in {
+    padding: 8px 0 3px 20px;
+}
+
+/* --- header --- */
+/* +++ footer +++ */
+
+footer {
+    padding: 2px 8px;
+    text-align: right;
+    color: #0c0d0d;
+    background-color: #adadad;
+}
+
+/* --- footer --- */
+/* +++ forms +++ */
+
+.form .error {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    margin-top: -14px;
+    background: #e79391;
+    text-align: center;
+    color: #514d4d;
+}
+
+.form label,
+.form .title {
+    display: block;
+    padding: 6px 0 2px;
+    color: #514d4d;
+    font-size: 13px;
+}
+
+.form .fields {
+    margin: 0 60px;
+}
+
+.form .fields .fields {
+    margin: 0;
+}
+
+.form .fields .field.input > * {
+    display: block;
+    width: 100%;
+}
+
+.form .fields .field.input input {
+    border: 0;
+    padding: 7px 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.form input[type=radio] {
+    -webkit-appearance: unset;
+    width: 14px;
+    height: 14px;
+    margin: 0;
+}
+
+.form input[type=radio]::after {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.form input[type=radio]:checked::after {
+    width: 8px;
+    height: 8px;
+    background: #646060;
+    border: 3px #fff solid;
+}
+
+.form .fields.buttons button,
+.form .fields.buttons .button {
+    display: inline-block;
+    width: 100%;
+    margin: 30px 0;
+    border: 0;
+    border-radius: 2px;
+    padding: 7px 0;
+    background-color: #63c4ab;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* --- forms --- */
+/* +++ registration form +++ */
+
+main.registration {
+    background: #dfdfdf;
+}
+
+main.registration .field.radio {
+    float: left;
+}
+
+main.registration .fields.main .fields.gender {
+    overflow: hidden;
+}
+
+main.registration .fields.main .fields.gender .field {
+    width: 50%;
+    text-align: center;
+}
+
+main.registration .fields.main .fields.gender .field label {
+    display: block;
+}
+
+main.registration .title.age {
+    text-align: center;
+}
+
+main.registration .fields.age {
+    margin: 0;
+    text-align: center;
+    font-size: 0; /* to remove whitespace between inline-block fields */
+}
+
+main.registration .fields.age .field {
+    display: inline-block;
+}
+
+main.registration .fields.age .field label {
+    min-width: 43px;
+    margin-bottom: 8px;
+    padding: 0 3px;
+    font-size: 12px;
+    line-height: 18px;
+    color: #5f5e5e;
+}
+
+main.registration .fields.age .field.group-1 label {
+    background-color: #63c4ab;
+}
+
+main.registration .fields.age .field.group-2 label {
+    background-color: #aac72f;
+}
+
+main.registration .fields.age .field.group-3 label {
+    background-color: #ffd257;
+}
+
+main.registration .fields.age .field.group-4 label {
+    background-color: #f09464;
+}
+
+main.registration .fields.age .field.group-5 label {
+    background-color: #e3a262;
+}
+
+main.registration .fields.age .field.group-6 label {
+    background-color: #ed7265;
+}
+
+/* --- registration form --- */
+/* +++ login + password recovery forms +++ */
+
+main.login .fields.buttons button {
+    margin: 20px 0 15px;
+}
+
+main.login .title,
+main.login a,
+main.password-recovery .title,
+main.password-recovery a {
+    text-align: center;
+    color: #514d4d;
+}
+
+main.login .title.small,
+main.password-recovery .title.small {
+    font-size: 12px;
+}
+
+main.login .title.sign-up a,
+main.password-recovery .title.sign-up a {
+    color: #0c0d0d;
+}
+
+main.login .title.forgot-password {
+    margin: 50px 0 10px;
+}
+
+/* --- login form --- */
+/* +++ password recovery form +++ */
+
+main.password-recovery .title.sign-up {
+    margin: 30px 0 60px;
+}
+
+main.password-recovery .success .title {
+    margin: 15px 0;
+}
+
+/* --- password recovery form --- */
+/* +++ rating/comment section +++ */
+
+main.ratings .top {
+    height: 30px;
+    padding: 0 20px;
+    background: #fff;
+    overflow: hidden;
+}
+
+main.ratings .top .rating {
+    float: left;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+main.ratings .top .rating .value.value-0 {
+    color: #dfdfdf;
+}
+
+main.ratings .top .rating .value.value-1 {
+    color: #e95b4c;
+}
+
+main.ratings .top .rating .value.value-2 {
+    color: #f66840;
+}
+
+main.ratings .top .rating .value.value-3 {
+    color: #ee8c59;
+}
+
+main.ratings .top .rating .value.value-4 {
+    color: #eeab54;
+}
+
+main.ratings .top .rating .value.value-5 {
+    color: #fed154;
+}
+
+main.ratings .top .rating .value.value-6 {
+    color: #e1ee4c;
+}
+
+main.ratings .top .rating .value.value-7 {
+    color: #aac730;
+}
+
+main.ratings .top .rating .value.value-8 {
+    color: #42b8a3;
+}
+
+main.ratings .top .rating .value.value-9 {
+    color: #17dfb1;
+}
+
+main.ratings .top .rating .value.value-10 {
+    color: #29d799;
+}
+
+main.ratings .top .actions {
+    float: right;
+}
+
+main.ratings .top .actions > * {
+    float: left;
+    width: 23px;
+    height: 30px;
+    margin: 0 13px 0 0;
+    border: 0;
+    padding: 0;
+}
+
+main.ratings .top .actions .add-comment {
+    background: url(../images/comment_large.png) no-repeat center center;
+}
+
+main.ratings .top .actions .add-comment.active {
+    background: url(../images/comment_large_active.png) no-repeat center center;
+}
+
+main.ratings .top .actions .vote-up {
+    background: url(../images/thumbs_up_large.png) no-repeat center 2px;
+}
+
+main.ratings .top .actions .vote-up.active {
+    background: url(../images/thumbs_up_large_active.png) no-repeat center 2px;
+}
+
+main.ratings .top .actions .vote-down {
+    background: url(../images/thumbs_down_large.png) no-repeat center 5px;
+}
+
+main.ratings .top .actions .vote-down.active {
+    background: url(../images/thumbs_down_large_active.png) no-repeat center 5px;
+}
+
+main.ratings .comments .head {
+    height: 30px;
+    position: relative;
+}
+
+main.ratings .comments .head .name {
+    position: absolute;
+    left: 11px;
+    bottom: 3px;
+    font-size: 16px;
+}
+
+main.ratings .comments .head .time {
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    font-size: 10px;
+    color: #606363;
+}
+
+main.ratings .comments {
+    margin-bottom: 20px;
+}
+
+main.ratings .comments .body {
+    position: relative;
+    min-height: 35px;
+    padding: 5px 36px 13px 18px;
+    background: #fff url(../images/comment_bg_small.png) no-repeat bottom right;
+}
+
+main.ratings .comments .body.voted-up {
+    background-image: url(../images/comment_bg_small_up.png);
+}
+
+main.ratings .comments .body.voted-down {
+    background-image: url(../images/comment_bg_small_down.png);
+}
+
+main.ratings .comments .body .foot {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+main.ratings .comments .body .foot > * {
+    vertical-align: bottom;
+}
+
+main.ratings .comments .body .foot button {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+main.ratings .comments .body .foot .child-count {
+    margin-right: 11px;
+    font-size: 10px;
+    color: #606363;
+    cursor: pointer;
+}
+
+main.ratings .comments .body .foot .add-comment {
+    display: inline-block;
+    width: 9px;
+    height: 11px;
+    margin-right: 30px;
+    background: url(../images/comment_small.png) no-repeat center 0;
+}
+
+main.ratings .comments .body .foot .add-comment.active {
+    background: url(../images/comment_small_active.png) no-repeat center center;
+}
+
+main.ratings .comments .body .foot .vote {
+    display: inline-block;
+    width: 11px;
+    height: 15px;
+    margin-right: 6px;
+}
+
+main.ratings .comments .body .foot .vote-up {
+    background: url(../images/thumbs_up_small.png) no-repeat center 0;
+}
+
+main.ratings .comments .body.voted-up .foot .vote-up {
+    background-image: url(../images/thumbs_up_small_active.png);
+}
+
+main.ratings .comments .body .foot .vote-down {
+    background: url(../images/thumbs_down_small.png) no-repeat center 3px;
+}
+
+main.ratings .comments .body.voted-down .foot .vote-down {
+    background-image: url(../images/thumbs_down_small_active.png);
+}
+
+main.ratings .comments .new {
+    display: none;
+}
+
+main.ratings .comments .new .body .text {
+    resize: none;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+main.ratings .comments .new .body .foot .child-count,
+main.ratings .comments .new .body .foot .add-comment,
+main.ratings .comments .new .body .foot .vote {
+    display: none;
+}
+
+main.ratings .comments .new .body .foot .submit {
+    width: 21px;
+    height: 12px;
+    margin: 0 9px 4px 0;
+    background: transparent url(../images/comment_submit.png) no-repeat center center;
+}
+
+main.ratings .comments .children {
+    display: none;
+    margin-left: 30px;
+}
+
+main.ratings .comments .children.open {
+    display: block;
+}
+
+main.ratings .comments .children .head {
+    height: 20px;
+}
+
+main.ratings .comments .children .head .name {
+    font-size: 14px;
+}
+
+main.ratings .comments .children .head .name,
+main.ratings .comments .children .head .time {
+    bottom: 1px;
+}
+
+/* --- rating/comment section --- */

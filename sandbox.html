@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+    <script src="assets/scripts/handlebars-v4.0.11.js"></script>
+</head>
+<body>
+<script type="text/x-handlebars-template" class="template" id="comments">
+    <article class="comment new">
+        <div class="head">
+            <div class="name"></div>
+        </div>
+        <form class="body" method="post">
+            <textarea name="message" class="text" required></textarea>
+            <div class="foot">
+                <button type="submit" class="submit"></button>
+            </div>
+        </form>
+    </article>
+    {{#each data}}
+    <article class="comment" data-id="{{ id }}">
+        <div class="head">
+            <div class="name">{{ author }}</div>
+            <div class="time">{{ readable time_diff }}</div>
+        </div>
+        <div class="body {{ voteClass this }}">
+            <span class="text">{{ message }}</span>
+            <div class="foot">
+                <span class="child-count">{{ childCount this }}</span>
+                <button type="button" class="add-comment"></button>
+                <button type="button" class="vote vote-up" data-value="up"></button>
+                <button type="button" class="vote vote-down" data-value="down"></button>
+            </div>
+        </div>
+        <div class="children {{ showChildren this }}">
+            <article class="comment new">
+                <div class="head">
+                    <div class="name"></div>
+                </div>
+                <form class="body" method="post">
+                    <input type="hidden" name="parent_id" value="{{ id }}"/>
+                    <textarea name="message" class="text" required></textarea>
+                    <div class="foot">
+                        <button type="submit" class="submit"></button>
+                    </div>
+                </form>
+            </article>
+            {{#if children}}
+            {{#each children}}
+            <article class="comment" data-id="{{ id }}">
+                <div class="head">
+                    <div class="name">{{ author }}</div>
+                    <div class="time">{{ readable time_diff }}</div>
+                </div>
+                <div class="body {{ voteClass this }}">
+                    <span class="text">{{ message }}</span>
+                    <div class="foot">
+                        <button type="button" class="vote vote-up" data-value="up"></button>
+                        <button type="button" class="vote vote-down" data-value="down"></button>
+                    </div>
+                </div>
+            </article>
+            {{/each}}
+            {{/if}}
+        </div>
+    </article>
+    {{/each}}
+</script>
+<script type="text/javascript">
+    const TIME_UNITS = ['second', 'minute', 'hour', 'day', 'month', 'year'];
+
+    const calcTimeDiffReadable = (timeDiff) => {
+        if (timeDiff < 10) {
+            return 'Just now';
+        }
+
+        let minute = 60,
+            hour = minute * 60,
+            day = hour * 24,
+            month = day * 30,
+            year = month * 12; // not exact, but this really doesn't need to be that accurate
+        let units;
+
+        if (timeDiff < minute) {
+            units = TIME_UNITS[0];
+        } else if (timeDiff < hour) {
+            timeDiff /= minute;
+            units = TIME_UNITS[1];
+        } else if (timeDiff < day) {
+            timeDiff /= hour;
+            units = TIME_UNITS[2];
+        } else if (timeDiff < month) {
+            timeDiff /= day;
+            units = TIME_UNITS[3];
+        } else if (timeDiff < year) {
+            timeDiff /= month;
+            units = TIME_UNITS[4];
+        } else {
+            timeDiff /= year;
+            units = TIME_UNITS[5];
+        }
+
+        timeDiff = Math.round(timeDiff);
+
+        return timeDiff + ' ' + units + ((timeDiff === 1) ? '' : 's') + ' ago';
+    };
+
+    Handlebars.registerHelper('readable', calcTimeDiffReadable);
+    Handlebars.registerHelper('voteClass', function (comment) {
+        if (!comment.vote) {
+            return '';
+        }
+
+        return 'voted voted-' + comment.vote;
+    });
+    Handlebars.registerHelper('childCount', function (comment) {
+        if (!comment.children) {
+            return '';
+        }
+
+        let childCount = comment.children.length;
+
+        return childCount + ' comment' + ((childCount > 1) ? 's' : '');
+    });
+    Handlebars.registerHelper('showChildren', function (comment) {
+        if (!comment.children) {
+            return '';
+        }
+
+        return (comment.showChildren ? ' open' : '');
+    });
+
+    // ############### INIT ###############
+
+    let templates = {};
+
+    // precompile all the templates upon loading the iframe
+    document.querySelectorAll('.template').forEach((element) => {
+        templates[element.id] = Handlebars.compile(element.innerHTML);
+    });
+
+    window.addEventListener('message', function (event) {
+        let response = {
+            id: event.data.id
+        };
+
+        if (!event.data.hasOwnProperty('template')) {
+            response.error = 'Missing template name';
+        } else if (!templates.hasOwnProperty(event.data.template)) {
+            response.error = 'Invalid template name';
+        } else {
+            const template = templates[event.data.template];
+            response.html = template({data: event.data.data});
+        }
+
+        event.source.postMessage(response, event.origin);
+    });
+</script>
+</body>
+</html>

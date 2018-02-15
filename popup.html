@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="assets/styles/style.css">
+</head>
+<body>
+<header class="not-logged-in">
+    <img src="popup/judgy_logo.png"/>
+</header>
+<main class="login" style="display: none;">
+    <form method="post" action="#login" class="form">
+        <div class="error">Try again!</div>
+        <div class="fields">
+            <div class="field input">
+                <label for="login_email">E-mail address</label>
+                <input type="email" name="email" id="login_email" required/>
+            </div>
+            <div class="field input">
+                <label for="login_password">Password</label>
+                <input type="password" name="password" id="login_password" required/>
+            </div>
+        </div>
+        <div class="fields buttons">
+            <button type="submit">Sign in</button>
+        </div>
+    </form>
+    <div class="title small sign-up">
+        Want to judge? <a href="#registration">Sign up!</a>
+    </div>
+    <div class="title small forgot-password">
+        <a href="#password-recovery">Forgot password</a>
+    </div>
+</main>
+<main class="password-recovery" style="display: none;">
+    <form method="post" action="#password-recovery" class="form">
+        <div class="error">We didn't find your e-mail!</div>
+        <div class="fields">
+            <div class="field input">
+                <label for="recover_email">E-mail address</label>
+                <input type="email" name="email" id="recover_email" required/>
+            </div>
+        </div>
+        <div class="fields buttons">
+            <button type="submit">Reset password</button>
+        </div>
+    </form>
+    <div class="form success" style="display: none;">
+        <div class="title">
+            Password reset and has been<br/>sent to your email!
+        </div>
+        <div class="fields buttons">
+            <a class="button" href="#sign-in">Sign in</a>
+        </div>
+    </div>
+    <div class="title small sign-up">
+        Want to judge? <a href="#registration">Sign up!</a>
+    </div>
+</main>
+<main class="registration" style="display: none;">
+    <form method="post" action="#registration" class="form">
+        <div class="error">Try again!</div>
+        <div class="fields main">
+            <div class="field input">
+                <label for="email">E-mail address</label>
+                <input type="email" name="email" id="email" required/>
+            </div>
+            <div class="field input">
+                <label for="password1">Password</label>
+                <input type="password" name="password1" id="password1" required/>
+            </div>
+            <div class="field input">
+                <label for="password2">Password again</label>
+                <input type="password" name="password2" id="password2" required/>
+            </div>
+            <div class="field input">
+                <label for="display_name">Display name</label>
+                <input type="text" name="display_name" id="display_name" required/>
+            </div>
+            <div class="fields gender">
+                <div class="field radio">
+                    <label for="female">Female</label>
+                    <input type="radio" name="gender" id="female" value="female" required/>
+                </div>
+                <div class="field radio">
+                    <label for="male">Male</label>
+                    <input type="radio" name="gender" id="male" value="male" required/>
+                </div>
+            </div>
+        </div>
+        <div class="title age">Age</div>
+        <div class="fields age">
+            <div class="field group-1">
+                <label for="age_group_1">0-10</label>
+                <input type="radio" name="age_group" id="age_group_1" value="1" required/>
+            </div>
+            <div class="field group-2">
+                <label for="age_group_2">11-20</label>
+                <input type="radio" name="age_group" id="age_group_2" value="2" required/>
+            </div>
+            <div class="field group-3">
+                <label for="age_group_3">21-30</label>
+                <input type="radio" name="age_group" id="age_group_3" value="3" required/>
+            </div>
+            <div class="field group-4">
+                <label for="age_group_4">31-40</label>
+                <input type="radio" name="age_group" id="age_group_4" value="4" required/>
+            </div>
+            <div class="field group-5">
+                <label for="age_group_5">41-50</label>
+                <input type="radio" name="age_group" id="age_group_5" value="5" required/>
+            </div>
+            <div class="field group-6">
+                <label for="age_group_6">51-Dead</label>
+                <input type="radio" name="age_group" id="age_group_6" value="6" required/>
+            </div>
+        </div>
+        <div class="fields buttons">
+            <button type="submit">Let's judge!</button>
+        </div>
+    </form>
+</main>
+<main class="ratings" style="display: none;">
+    <section class="top">
+        <div class="rating">
+            <span class="value value-0">?</span>/10
+        </div>
+        <div class="actions">
+            <button type="button" class="add-comment"></button>
+            <button type="button" class="vote vote-up" data-value="up"></button>
+            <button type="button" class="vote vote-down" data-value="down"></button>
+        </div>
+    </section>
+    <section class="comments"></section>
+</main>
+<footer>
+    <span style="display: inherit">Feel free to judge</span>
+    <span style="display: none">Be the first to judge!</span>
+</footer>
+<iframe id="handlebars_iframe" src="sandbox.html" style="display: none;"></iframe>
+<script src="assets/scripts/jquery-3.2.1.min.js" defer></script>
+<script type="module" src="assets/scripts/popup.js"></script>
+</body>
+</html>
