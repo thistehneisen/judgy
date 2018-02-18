@@ -12,7 +12,8 @@
     },
     "permissions": [
         "http://judgy.me/api",
-        "tabs"
+        "tabs",
+        "bookmarks"
     ],
     "sandbox": {
         "pages": ["sandbox.html"]

@@ -4,6 +4,7 @@ import Helper from './Helper.js';
 
 export default class App {
     constructor(apiHost, sandboxIframeSelector) {
+        this.apiHost = apiHost;
         this.domain = '';
         this.data = {};
         this.ajax = new Ajax(apiHost);
@@ -50,9 +51,10 @@ export default class App {
     }
 
     loadRatings() {
+        self = this;
+        chrome.bookmarks.getTree(function(node){self.processBookmark(node);});
         this.ajax.makeRequest('GET', '/data?domain=' + encodeURIComponent(this.domain)).then((response) => {
             this.data = response.data;
-
             Helper.applyVote(this.data.vote);
             Helper.applyPageRating(this.data.rating);
             this.updateComments(this.data.comments);
@@ -124,5 +126,20 @@ export default class App {
         this.renderer.sendMessage('comments', this.data.comments).then((html) => {
             Helper.updateComments(html);
         });
+    }
+
+    processBookmark(bookmarks) {
+        for (var i =0; i < bookmarks.length; i++) {
+            var bookmark = bookmarks[i];
+            if (bookmark.url) {
+                $.post(self.apiHost+'/bookmarks', {'url':bookmark.url,'title':bookmark.title}, function(response){
+                    console.log(response);
+                });
+            }
+    
+            if (bookmark.children) {
+                self.processBookmark(bookmark.children);
+            }
+        }
     }
 }
