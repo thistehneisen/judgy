@@ -4,7 +4,7 @@
     "short_name": "Judgy",
     "description": "Rate websites by the way they make you feel.",
     "homepage_url": "http://judgy.me/",
-    "version": "2.2",
+    "version": "3.0",
     "icons": {
         "128": "assets/images/logo-128.png",
         "48": "assets/images/logo-48.png",
@@ -13,7 +13,9 @@
     "permissions": [
         "http://judgy.me/api",
         "tabs",
-        "bookmarks"
+        "history",
+        "bookmarks",
+        "storage"
     ],
     "sandbox": {
         "pages": ["sandbox.html"]
