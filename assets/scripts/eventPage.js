@@ -43,7 +43,15 @@ class Helper {
 
 // using the domain required by manifest as API URL
 const API_HOST = chrome.runtime.getManifest().permissions[0];
+const APP = new App(API_HOST, '#handlebars_iframe');
 let domain = null;
+
+chrome.tabs.query({
+    active: true,
+    currentWindow: true
+}, (tabs) => {
+    APP.init(tabs[0].url);
+});
 
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.get(activeInfo.tabId, function (tab) {

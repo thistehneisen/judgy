@@ -1,4 +1,4 @@
-export default class Ajax {
+class Ajax {
     constructor(apiHost) {
         // manifest.json requires the URL to have a trailing slash.
         // We need to get rid of it, because all requests give a proper path in form of "/foo/bar" (with leading slash).

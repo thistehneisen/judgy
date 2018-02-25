@@ -1,4 +1,4 @@
-export default class Renderer {
+class Renderer {
     constructor(iframeSelector) {
         this.iframe = document.querySelector(iframeSelector);
         this.requests = {};

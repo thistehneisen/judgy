@@ -1,6 +1,3 @@
-import Router from './classes/Router.js';
-import App from './classes/App.js';
-
 // ################## INIT ##################
 
 // using the domain required by manifest as API URL

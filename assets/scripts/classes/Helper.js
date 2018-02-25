@@ -1,4 +1,4 @@
-export default class Helper {
+class Helper {
     static applyVote(vote) {
         $('main.ratings .top .actions .vote-' + vote).addClass('active');
     }

@@ -1,4 +1,4 @@
-export default class Router {
+class Router {
     static route() {
         let $blocks = $('main').hide();
         const showBlock = ($block) => {

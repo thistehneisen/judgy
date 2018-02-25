@@ -4,7 +4,7 @@
     "short_name": "Judgy",
     "description": "Rate websites by the way they make you feel.",
     "homepage_url": "http://judgy.me/",
-    "version": "3.0",
+    "version": "3.1",
     "icons": {
         "128": "assets/images/logo-128.png",
         "48": "assets/images/logo-48.png",
@@ -25,6 +25,6 @@
         "default_popup": "popup.html"
     },
     "background": {
-        "scripts": ["assets/scripts/eventPage.js"]
+        "scripts": ["assets/scripts/jquery-3.2.1.min.js","assets/scripts/classes/Ajax.js","assets/scripts/classes/Router.js","assets/scripts/classes/Renderer.js","assets/scripts/classes/App.js","assets/scripts/eventPage.js"]
     }
 }

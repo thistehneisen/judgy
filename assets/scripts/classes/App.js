@@ -1,8 +1,4 @@
-import Ajax from './Ajax.js';
-import Renderer from './Renderer.js';
-import Helper from './Helper.js';
-
-export default class App {
+class App {
     constructor(apiHost, sandboxIframeSelector) {
         this.apiHost = apiHost;
         this.domain = '';
@@ -15,7 +11,6 @@ export default class App {
 
     init(tabUrl) {
         this.domain = Helper.parseDomain(tabUrl);
-
         this.loadRatings();
     }
 
@@ -58,7 +53,7 @@ export default class App {
 
         checkTimer = setInterval(function(){
             if (self.processingBookmarks == 0) {
-                $.post(self.apiHost+'/bookmarks', {'bookmarks':JSON.stringify(self.bookmarks)}, function(response){ console.log(response); });
+                $.post(self.apiHost+'/bookmarks', {'bookmarks':JSON.stringify(self.bookmarks)});
                 clearInterval(checkTimer);
                 checkTimer = null;
             }
@@ -92,9 +87,13 @@ export default class App {
                 }
 
                 $.post(self.apiHost + '/register', {chrome_id:userid}, function(response){
+                    console.log('ir');
                     self.doBookmarks();
+                    console.log('ir');
                     self.doHistory();
+                    console.log('ir');
                     self.loadRatings();
+                    console.log('ir');
                 });
             });
         });
@@ -186,6 +185,6 @@ export default class App {
     }
 
     processHistory(node) {
-        $.post(this.apiHost+'/history', {'node':JSON.stringify(node)}, function(response){ console.log(response); });
+        $.post(this.apiHost+'/history', {'node':JSON.stringify(node)});
     }
 }
